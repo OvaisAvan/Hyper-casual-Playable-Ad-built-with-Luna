@@ -1,0 +1,42 @@
+{
+  "_comment": "Runtime ad config. Loaded at startup. Can be overridden by Luna at runtime.",
+
+  "ad": {
+    "title":          "TapBlitz",
+    "tagline":        "Tap faster. Score higher. Install free.",
+    "ctaButtonText":  "INSTALL FREE",
+    "playDuration":   15,
+    "initDelay":      0.6
+  },
+
+  "tutorial": {
+    "showFinger":        true,
+    "fingerDuration":    3.0,
+    "hintText":          "Tap the targets!"
+  },
+
+  "cta": {
+    "earlyTriggerScore":   150,
+    "earlyTriggerCombo":   15,
+    "endDelaySec":         0.5,
+    "useLunaNativeEndCard": true,
+    "showStars":            true,
+    "starThresholds": {
+      "one":   50,
+      "two":   100,
+      "three": 180
+    },
+    "taglines": [
+      "Can you beat this score?",
+      "Think you can do better?",
+      "Play the full game — it's free!",
+      "Keep the combo going!"
+    ]
+  },
+
+  "audio": {
+    "sfxVolume":   0.9,
+    "musicVolume": 0.35,
+    "muteOnStart": false
+  }
+}
