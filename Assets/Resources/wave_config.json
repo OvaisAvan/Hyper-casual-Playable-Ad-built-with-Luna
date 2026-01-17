@@ -1,0 +1,79 @@
+{
+  "_comment": "TapBlitz wave/difficulty configuration. Loaded by TargetSpawner.",
+
+  "waves": [
+    {
+      "startTime": 0,
+      "endTime":   4,
+      "label":     "Warm Up",
+      "spawnIntervalSec": 1.2,
+      "maxSimultaneous":  2,
+      "targetTypeWeights": {
+        "normal": 0.90,
+        "bonus":  0.10,
+        "bomb":   0.00
+      },
+      "targetLifetimeSec": 2.5
+    },
+    {
+      "startTime": 4,
+      "endTime":   8,
+      "label":     "Heating Up",
+      "spawnIntervalSec": 0.9,
+      "maxSimultaneous":  3,
+      "targetTypeWeights": {
+        "normal": 0.75,
+        "bonus":  0.20,
+        "bomb":   0.05
+      },
+      "targetLifetimeSec": 2.0
+    },
+    {
+      "startTime": 8,
+      "endTime":   12,
+      "label":     "Fast & Furious",
+      "spawnIntervalSec": 0.6,
+      "maxSimultaneous":  5,
+      "targetTypeWeights": {
+        "normal": 0.60,
+        "bonus":  0.25,
+        "bomb":   0.15
+      },
+      "targetLifetimeSec": 1.5
+    },
+    {
+      "startTime": 12,
+      "endTime":   15,
+      "label":     "Blitz!",
+      "spawnIntervalSec": 0.35,
+      "maxSimultaneous":  6,
+      "targetTypeWeights": {
+        "normal": 0.50,
+        "bonus":  0.30,
+        "bomb":   0.20
+      },
+      "targetLifetimeSec": 1.0
+    }
+  ],
+
+  "targetTypes": {
+    "normal": {
+      "color":       "#66CCFF",
+      "pointValue":  10,
+      "scale":       1.0,
+      "description": "Standard tap target"
+    },
+    "bonus": {
+      "color":       "#FFD700",
+      "pointValue":  30,
+      "scale":       1.2,
+      "description": "Worth 3x points, pulses gold"
+    },
+    "bomb": {
+      "color":       "#FF4444",
+      "pointValue":  -15,
+      "scale":       1.1,
+      "description": "Tapping loses points and breaks combo"
+    }
+  }
+}
