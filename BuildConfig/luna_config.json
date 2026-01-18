@@ -1,0 +1,61 @@
+{
+  "_comment": "TapBlitz Luna Playable Ad configuration. Edit before building.",
+
+  "game": {
+    "title":        "TapBlitz",
+    "version":      "1.0.0",
+    "studio":       "Your Studio Name",
+    "bundleId":     "com.yourstudio.tapblitz"
+  },
+
+  "storeUrls": {
+    "ios":     "https://apps.apple.com/app/id000000000",
+    "android": "https://play.google.com/store/apps/details?id=com.yourstudio.tapblitz"
+  },
+
+  "adSettings": {
+    "playDurationSeconds": 15,
+    "showTutorialFinger":  true,
+    "tutorialFingerDurationSeconds": 3,
+    "earlyCtaScoreThreshold": 150,
+    "earlyCtaComboThreshold": 15,
+    "useLunaNativeEndCard": true
+  },
+
+  "gameplay": {
+    "boardColumns":        7,
+    "boardRows":           7,
+    "baseSpawnIntervalSec": 1.2,
+    "minSpawnIntervalSec":  0.35,
+    "difficultyRampSec":    12,
+    "initialMaxTargets":    2,
+    "maxTargetsCap":        6,
+    "comboTiers": [5, 10, 15, 20],
+    "comboMultipliers": [1.5, 2.0, 3.0, 5.0],
+    "comboLabels": ["NICE!", "GREAT!", "AMAZING!", "UNSTOPPABLE!"]
+  },
+
+  "scoring": {
+    "normalTargetPoints": 10,
+    "bonusTargetPoints":  30,
+    "bombPenalty":        15,
+    "oneStar":    50,
+    "twoStar":   100,
+    "threeStar": 180
+  },
+
+  "luna": {
+    "sdkVersion":  "latest",
+    "platform":    "unity-luna",
+    "dashboardUrl": "https://luna.unity.com",
+    "docsUrl":     "https://developer.unity.com/products/luna"
+  },
+
+  "build": {
+    "maxFileSizeMb":         5.0,
+    "recommendedFileSizeMb": 2.0,
+    "compressionFormat":     "gzip",
+    "exceptionSupport":      "none",
+    "stripEngineCode":       true
+  }
+}
