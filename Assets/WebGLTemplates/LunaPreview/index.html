@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <title>TapBlitz — Luna Preview</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a18;
+      --surface: #13132b;
+      --accent: #a855f7;
+      --accent2: #3b82f6;
+      --text: #e2e8f0;
+      --muted: rgba(255,255,255,0.35);
+    }
+
+    body {
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: var(--text);
+      gap: 16px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .luna-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface);
+      border: 1px solid rgba(168,85,247,0.3);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+    }
+
+    .title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* Phone frame */
+    #frame {
+      position: relative;
+      width: 390px;
+      height: 844px;
+      max-height: 88vh;
+      aspect-ratio: 390/844;
+      border-radius: 38px;
+      overflow: hidden;
+      border: 2px solid rgba(168,85,247,0.25);
+      box-shadow:
+        0 0 0 1px rgba(168,85,247,0.1),
+        0 0 60px rgba(168,85,247,0.2),
+        0 40px 80px rgba(0,0,0,0.6);
+      transition: width 0.3s, height 0.3s;
+    }
+
+    #unity-canvas {
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      display: block;
+    }
+
+    #loading {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      gap: 18px;
+      transition: opacity 0.5s;
+    }
+
+    .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid rgba(168,85,247,0.15);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.75s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .progress-wrap {
+      width: 150px; height: 5px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    #progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 3px;
+      transition: width 0.2s;
+    }
+    .load-text { font-size: 0.7rem; color: var(--muted); }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .ctrl-btn {
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(168,85,247,0.25);
+      background: transparent;
+      color: var(--accent);
+      font-size: 0.72rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.04em;
+    }
+    .ctrl-btn:hover  { background: rgba(168,85,247,0.12); }
+    .ctrl-btn.active { background: rgba(168,85,247,0.22); border-color: var(--accent); }
+
+    .info {
+      font-size: 0.68rem;
+      color: var(--muted);
+      text-align: center;
+      max-width: 420px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="title">TapBlitz</div>
+  <div class="luna-badge">🌙 Luna Preview</div>
+</header>
+
+<div id="frame">
+  <canvas id="unity-canvas" tabindex="-1"></canvas>
+  <div id="loading">
+    <div class="spinner"></div>
+    <div class="progress-wrap">
+      <div id="progress-bar"></div>
+    </div>
+    <div class="load-text" id="load-label">Initialising…</div>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="ctrl-btn active" onclick="setDevice(390,844,this)">iPhone 14</button>
+  <button class="ctrl-btn"        onclick="setDevice(393,852,this)">iPhone 15</button>
+  <button class="ctrl-btn"        onclick="setDevice(412,915,this)">Pixel 7</button>
+  <button class="ctrl-btn"        onclick="setDevice(768,1024,this)">iPad</button>
+  <button class="ctrl-btn"        onclick="setDevice(360,780,this)">Galaxy S21</button>
+</div>
+
+<div class="info">
+  Luna stub active — Luna JS runtime simulated for local preview.<br>
+  In production, Luna injects its runtime automatically.
+</div>
+
+<!-- Luna stub (development only — remove from final Luna submission) -->
+<script src="luna_stub.js"></script>
+
+<!-- Unity loader -->
+<script src="{{{ LOADER_FILENAME }}}"></script>
+
+<script>
+  var canvas   = document.getElementById('unity-canvas');
+  var loading  = document.getElementById('loading');
+  var progress = document.getElementById('progress-bar');
+  var label    = document.getElementById('load-label');
+
+  createUnityInstance(canvas, {
+    dataUrl:            "{{{ DATA_FILENAME }}}",
+    frameworkUrl:       "{{{ FRAMEWORK_FILENAME }}}",
+    codeUrl:            "{{{ CODE_FILENAME }}}",
+    streamingAssetsUrl: "StreamingAssets",
+    companyName:        "YourStudio",
+    productName:        "TapBlitz",
+    productVersion:     "1.0",
+  }, function(p) {
+    progress.style.width = (p * 100) + '%';
+    label.textContent    = Math.round(p * 100) + '%';
+  }).then(function(inst) {
+    window.unityInstance = inst;
+
+    // Inject store URL (simulates Luna doing this in production)
+    var storeUrl = /iP(hone|ad|od)/.test(navigator.userAgent)
+      ? (window._lunaStoreUrl || 'https://apps.apple.com/app/id000000')
+      : (window._lunaStoreUrl || 'https://play.google.com/store/apps/details?id=com.yourstudio.tapblitz');
+
+    inst.SendMessage('LunaCtaHandler', 'SetStoreUrl', storeUrl);
+    inst.SendMessage('WebGLBridge', 'OnStoreUrlReceived', storeUrl);
+
+    loading.style.opacity = '0';
+    setTimeout(() => loading.style.display = 'none', 500);
+  }).catch(console.error);
+
+  function setDevice(w, h, btn) {
+    var frame = document.getElementById('frame');
+    frame.style.width  = w + 'px';
+    frame.style.height = h + 'px';
+    document.querySelectorAll('.ctrl-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
