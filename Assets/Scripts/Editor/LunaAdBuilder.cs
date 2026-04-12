@@ -121,7 +121,7 @@ namespace TapBlitz.Editor
                 options          = BuildOptions.None
             };
 
-            var report = UnityEditor.Build.Reporting.BuildPipeline.BuildPlayer(opts);
+            var report = BuildPipeline.BuildPlayer(opts);
             if (report.summary.result != UnityEditor.Build.Reporting.BuildResult.Succeeded)
             {
                 Debug.LogError("[LunaBuilder] WebGL build FAILED.");
