@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using TapBlitz.Managers;
 using TapBlitz.UI;
 
 namespace TapBlitz.Core
