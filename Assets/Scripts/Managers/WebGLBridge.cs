@@ -27,7 +27,7 @@ namespace TapBlitz.Managers
             if (preventSleep) Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
             // Texture memory — keep low for ad size limits
-            QualitySettings.masterTextureLimit = 0;
+            QualitySettings.globalTextureMipmapLimit = 0;
 
             Debug.Log($"[WebGLBridge] Init. FPS={targetFPS} VSync={!disableVSync}");
         }
