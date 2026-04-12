@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TapBlitz.Managers;
 using TapBlitz.Ad;
+using TapBlitz.UI;
 
 namespace TapBlitz.Core
 {
